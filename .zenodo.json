@@ -1,0 +1,13 @@
+{
+  "title": "The Lifelong Loop: Error-Gated Consolidation and the Cost of Nights Without a Log (instrument, results, and paper v1)",
+  "upload_type": "software",
+  "creators": [{"name": "Lin, Xuhao", "orcid": "0009-0007-1183-6144"}],
+  "version": "v1.0.0",
+  "description": "Instrument, raw per-night/per-fact timelines (30 runs), and paper v1 for an end-to-end audit of a day/night in-weight memory loop on a frozen LLM, up to 30 simulated days (720 facts). Findings: error-gated consolidation retains 2.2x recency-only at identical nightly budget by rescuing the latent (recognized-not-recalled) class; nights without a log poison the system (self-recitation collapses to 0; hybrid recitation lands below doing nothing, via fluent-error compounding); no budget or capacity exhaustion by 720 facts (full replay 99%; error-gated fraction rises 38->44->46% into a throttled steady state); the served agent keeps GSM8K intact in both mount states but the hot day adapter carries a ~6x free-text perplexity accent and masks old-fact recall 3-10x at read time. Capability firewall +0.00 in every run.",
+  "license": "MIT",
+  "keywords": ["continual learning", "memory consolidation", "sleep cycle", "LoRA", "catastrophic forgetting", "large language models", "lifelong learning", "model collapse"],
+  "related_identifiers": [
+    {"relation": "isSupplementTo", "identifier": "10.5281/zenodo.21232648", "resource_type": "publication-preprint"},
+    {"relation": "isDerivedFrom", "identifier": "10.5281/zenodo.21199026", "resource_type": "software"}
+  ]
+}
