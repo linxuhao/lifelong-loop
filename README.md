@@ -39,10 +39,51 @@ reproduce.sh          # full run matrix
 
 ## Reproduce
 ```bash
-pip install torch transformers peft datasets
+pip install -r requirements.txt
 python analyze.py     # re-derive all paper tables from shipped raw results
+python make_figure.py # regenerate the paper figure
 bash reproduce.sh     # re-run everything (fp32 Qwen3.5-2B; ~10GB VRAM; D30 runs take hours each)
 ```
+
+Single runs:
+
+```bash
+python loop.py --night misslog --days 6 --firewall-n 10 --seed 1234    # the headline arm
+python loop.py --night markov  --days 6 --firewall-n 10 --seed 1234    # recency baseline
+python loop.py --night hybrid  --days 6 --firewall-n 10 --seed 1234    # the poisoning arm
+python loop.py --night misslog --days 30 --probe-stride 3 --seed 1234  # the marathon
+python loop.py --night misslog --days 6 --oncap 10 --save-core --seed 1234  # + dual-state capability probes
+```
+
+### Driver flags
+
+| flag | values (default first) | meaning |
+|---|---|---|
+| `--night` | markov · full · misslog · recite · hybrid | nightly consolidation policy (see paper §2) |
+| `--days` / `--fpd` | 6 / 24 | horizon in days / facts per day |
+| `--probe-stride` | 1 | full-history post-night probe every k nights (mechanism self-tests unaffected) |
+| `--oncap` | 0 | >0: GSM8K items for mounted-state capability probes (+ fixed-text NLL) |
+| `--save-core` | off | archive the trained core adapter to `results/cores/` |
+| `--core-epochs` | 3 | nightly gradient budget = fpd × core_epochs steps (all arms except `full`) |
+| `--model` | Qwen/Qwen3.5-2B | substrate (non-default encoded in the filename) |
+| `--core-rank --day-rank --ws --replay-m --ewc-lambda --lr --seed` | 32 · 64 · 8 · 4 · 300 · 3e-5 · 1234 | adapters / day-phase / opt |
+
+### Result JSON schema
+
+Filenames: `loop_{night}[_oncap][_M{model}]_D{days}_f{fpd}_s{seed}.json`. Fields:
+
+- top level: hyperparameters, `firewall` (`{gsm8k_base, gsm8k_off}`, plus `ppl_base` when `--oncap`);
+- `trajectory`: one entry per night. Full-probe nights have `post_hits` (per-fact 0/1 core-only
+  recall over ALL facts so far; index = fid, day of write = fid // fpd), `margins` (2-AFC logprob
+  margin per fact, >0 = recognized), `recall_by_day` (post_hits summed per write-day — the age
+  curve), `n_recognized`, `pre_night_hits` (core+day recall before consolidation — the read-masking
+  comparison), and with `--oncap` an `oncap` dict (`gsm8k_core_day`, `ppl_core_day` = hot daytime
+  mount; `gsm8k_core`, `ppl_core` = morning core-only). Stride-skipped nights have only
+  `pre_night_hits` and `today_post` (today's cohort pulse).
+
+`analyze.py` legend: `final` = post-night recall of the whole history at the last night ·
+`recog` = final 2-AFC counts · `survivalRLG` = next-night survival of facts that were **R**ecalled /
+**L**atent (recognized-only) / **G**one at the previous probe — the category table of paper §3.1.
 
 ## Honest notes
 - One substrate at loop level; synthetic collision-free facts; 24 facts/day; one nightly budget.
