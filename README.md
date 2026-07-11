@@ -2,7 +2,7 @@
 
 Code, raw per-night/per-fact timelines, and paper for:
 
-> **The Lifelong Loop: Error-Gated Consolidation and the Cost of Nights Without a Log** (v1 preprint, July 2026 — [paper/lifelong_loop_v1.pdf](paper/lifelong_loop_v1.pdf))
+> **The Lifelong Loop: Error-Gated Consolidation and the Cost of Nights Without a Log** (v1.1 preprint, July 2026 — [paper/lifelong_loop_v1.pdf](paper/lifelong_loop_v1.pdf), doi:10.5281/zenodo.21310038)
 
 Companion to *Persistence Is Not Accumulation* (doi:10.5281/zenodo.21232648, code doi:10.5281/zenodo.21199026),
 which audits the **day** scale; this paper runs the complete **day/night loop** end-to-end for up to
@@ -100,7 +100,7 @@ numbers to differ on any hardware (they differ across our own seeds too).
   numbers always shown.
 - `*_oncap` result files are re-runs of the D6 error-gated arm with dual-state capability probes
   (training identical; filenames encode the flag). Trained core checkpoints (~135MB each) exceed
-  GitHub file limits and are archived separately; available on request / with the Zenodo record.
+  GitHub file limits and are archived separately; available with the Zenodo software record (doi:10.5281/zenodo.21309811).
 - The misslog self-test cost grows linearly with history (generation, not gradients); a deployment
   would subsample it — untested here.
 

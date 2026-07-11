@@ -6,8 +6,9 @@ authors:
     given-names: Xuhao
     orcid: "https://orcid.org/0009-0007-1183-6144"
 type: software
-version: v1.0.0
+version: v1.1.0
 date-released: 2026-07-11
 repository-code: "https://github.com/linxuhao/lifelong-loop"
+doi: 10.5281/zenodo.21309811
 license: MIT
 keywords: [continual learning, memory consolidation, sleep cycle, LoRA, catastrophic forgetting, large language models, lifelong learning, model collapse]
