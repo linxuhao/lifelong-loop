@@ -85,6 +85,11 @@ Filenames: `loop_{night}[_oncap][_M{model}]_D{days}_f{fpd}_s{seed}.json`. Fields
 `recog` = final 2-AFC counts · `survivalRLG` = next-night survival of facts that were **R**ecalled /
 **L**atent (recognized-only) / **G**one at the previous probe — the category table of paper §3.1.
 
+**Hardware note**: the code is standard PyTorch + transformers + peft — it runs on NVIDIA/CUDA
+as-is (`--dev cuda:0` is the same device string under ROCm, which is simply what *our* GPUs were).
+The ROCm remarks in this repo describe our measurement hardware, not a requirement; expect exact
+numbers to differ on any hardware (they differ across our own seeds too).
+
 ## Honest notes
 - One substrate at loop level; synthetic collision-free facts; 24 facts/day; one nightly budget.
   1–3 seeds per condition on nondeterministic consumer ROCm — directions, not points; per-seed
