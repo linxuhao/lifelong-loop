@@ -31,6 +31,7 @@ loop.py               # the end-to-end day/night loop (one driver, all night arm
 lib.py                # probes, GSM8K firewall eval (shared with the companion instrument)
 gsm8k_pilot_ids.json  # frozen 10-item GSM8K firewall subset
 analyze.py            # re-derives every table from results/ (pinned definitions in its docstring)
+make_figure.py        # regenerates the paper figure from results/
 results/              # raw per-night, per-fact timelines for every run in the paper
 paper/                # LaTeX source, figure, PDF
 reproduce.sh          # full run matrix
