@@ -16,10 +16,13 @@ persistent LoRA core:
 2. **Nights without a log poison the system**: pure self-recitation collapses structurally (0/144), and
    mixing recitation with ground truth lands *below* doing nothing about the past (4.3 vs 25.0/144) —
    fluent wrong recitations overwrite earlier consolidation (error compounding).
-3. **No exhaustion by 30 days / 720 facts**: full replay holds 99% (r32 core streaming capacity exceeds
+3. **The ordering is an architecture fact**: all five night arms replicate structurally on
+   SmolLM2-1.7B-Instruct (hyperparameters unchanged) — error-gated 2.0× recency (vs 2.2× on Qwen),
+   recitation collapse, hybrid poisoning (even harder), full-replay ceiling 94%.
+4. **No exhaustion by 30 days / 720 facts**: full replay holds 99% (r32 core streaming capacity exceeds
    the generator); the error-gated arm's retained fraction *rises* with horizon (38→44→46%), settling
    into a throttled steady state (old-day plateau, squeezed intake of the newest days).
-4. **The served agent is not aphasic** (GSM8K intact in both serving states) but the hot-day mount
+5. **The served agent is not aphasic** (GSM8K intact in both serving states) but the hot-day mount
    carries a ~6× perplexity accent on free text and masks old-fact recall 3–10× at read time —
    prescription: consolidate nightly, serve from the core, mount the day adapter narrowly.
 
@@ -91,7 +94,8 @@ The ROCm remarks in this repo describe our measurement hardware, not a requireme
 numbers to differ on any hardware (they differ across our own seeds too).
 
 ## Honest notes
-- One substrate at loop level; synthetic collision-free facts; 24 facts/day; one nightly budget.
+- The D6 policy comparison is two-substrate; D12/D30 horizons are Qwen-only. Synthetic collision-free
+  facts; 24 facts/day; one nightly budget.
   1–3 seeds per condition on nondeterministic consumer ROCm — directions, not points; per-seed
   numbers always shown.
 - `*_oncap` result files are re-runs of the D6 error-gated arm with dual-state capability probes

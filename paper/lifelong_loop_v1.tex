@@ -11,7 +11,7 @@
 
 \title{The Lifelong Loop: Error-Gated Consolidation\\ and the Cost of Nights Without a Log}
 \author{Xuhao Lin\\ \small Independent researcher \quad \texttt{linxuhao84@gmail.com}}
-\date{July 2026 --- v1 (preprint)}
+\date{July 2026 --- v1.1 (preprint)}
 
 \begin{document}
 \maketitle
@@ -102,9 +102,10 @@ recall $3$--$10\times$ at read time. The serving prescription follows: consolida
 from the core, mount the day adapter narrowly.
 \end{enumerate}
 
-As in the companion paper, everything is reported as floors and directions --- one substrate,
-synthetic facts, 1--3 seeds per condition on nondeterministic consumer hardware --- with per-seed
-numbers throughout and raw per-fact timelines released.
+As in the companion paper, everything is reported as floors and directions --- synthetic facts,
+1--3 seeds per condition on nondeterministic consumer hardware --- with per-seed numbers throughout
+and raw per-fact timelines released. The six-day, five-arm comparison replicates structurally on a
+second substrate (\S\ref{sec:transfer}); the longer horizons are single-substrate.
 
 \section{Related work}\label{sec:related}
 
@@ -271,6 +272,21 @@ pathologies concentrate in one serving state, which yields the deployment prescr
 \emph{consolidate nightly; serve from the core; mount the day adapter narrowly (for
 recent-information queries) or attenuated --- not permanently}.
 
+\subsection{Substrate transfer: the ordering is an architecture fact}\label{sec:transfer}
+
+Re-running all five night arms for six days on SmolLM2-1.7B-Instruct --- a different organization,
+architecture family, and training corpus, with every hyperparameter carried over unchanged --- was
+pre-registered (2026-07-11) to preserve the structural claims but not the magnitudes. All four
+held (2 seeds, firewall $0.40\to0.40$ in all ten runs): error-gated consolidation beats recency-only
+$2.0\times$ (35.0 vs.\ 17.5 of 144; the Qwen ratio is $2.2\times$); pure recitation collapses
+structurally (0/144, recognition at chance); \textbf{hybrid recitation poisons even harder} (0.5/144
+--- consistent with the mechanism, since a weaker substrate recites with lower fidelity and so
+compounds errors faster); and full replay is a substrate-robust ceiling (136/144, recognition
+144/144). The markov recency-window signature ([0,0,0,0,3--4,12--15]) and the hot-mount read-time
+masking ($6$--$30\times$ on the error-gated arm) also transfer. The night-policy ordering, the
+poisoning, and the recency window are properties of the loop architecture, not accidents of one
+model.
+
 \section{Discussion}\label{sec:discussion}
 
 \textbf{A design rule, stated once.} The loop's results compose into a single sentence: a lifelong
@@ -290,8 +306,8 @@ high-fidelity enough to avoid poisoning. All three are runnable with the release
 
 \section{Limitations}\label{sec:limits}
 
-One substrate (\qwen{}) at the loop level; the companion paper's substrate-transfer results cover
-only the day scale. Synthetic, collision-free, non-conflicting facts; 24 facts per day is a toy day;
+The six-day policy comparison is two-substrate (\S\ref{sec:transfer}); the 12- and 30-day horizons
+are \qwen{}-only. Synthetic, collision-free, non-conflicting facts; 24 facts per day is a toy day;
 revision (``the user moved'') is untested in the loop. One nightly budget (72 steps) and one
 day/core rank pair; the throttled steady state's location presumably moves with both. 1--3 seeds per
 condition on nondeterministic hardware --- directions, not calibrated points. The misslog self-test
