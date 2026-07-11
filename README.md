@@ -1,11 +1,11 @@
 # The Lifelong Loop
 
-Code, raw per-night/per-fact timelines, and paper for:
+Code and raw per-night/per-fact timelines for:
 
-> **The Lifelong Loop: Error-Gated Consolidation and the Cost of Nights Without a Log** (v1.1 preprint, July 2026 — [paper/lifelong_loop_v1.pdf](paper/lifelong_loop_v1.pdf), doi:10.5281/zenodo.21310038)
+> **The Lifelong Loop: Error-Gated Consolidation and the Cost of Nights Without a Log** (under double-blind review)
 
-Companion to *Persistence Is Not Accumulation* (doi:10.5281/zenodo.21232648, code doi:10.5281/zenodo.21199026),
-which audits the **day** scale; this paper runs the complete **day/night loop** end-to-end for up to
+Builds on the day-scale streaming instrument of Lin (2026), *Persistence Is Not Accumulation*;
+this paper runs the complete **day/night loop** end-to-end for up to
 30 simulated days (720 facts) on a frozen Qwen3.5-2B with a disposable LoRA day adapter and a
 persistent LoRA core:
 
@@ -36,7 +36,6 @@ gsm8k_pilot_ids.json  # frozen 10-item GSM8K firewall subset
 analyze.py            # re-derives every table from results/ (pinned definitions in its docstring)
 make_figure.py        # regenerates the paper figure from results/
 results/              # raw per-night, per-fact timelines for every run in the paper
-paper/                # LaTeX source, figure, PDF
 reproduce.sh          # full run matrix
 ```
 
@@ -100,8 +99,8 @@ numbers to differ on any hardware (they differ across our own seeds too).
   numbers always shown.
 - `*_oncap` result files are re-runs of the D6 error-gated arm with dual-state capability probes
   (training identical; filenames encode the flag). Trained core checkpoints (~135MB each) exceed
-  GitHub file limits and are archived separately; available with the Zenodo software record (doi:10.5281/zenodo.21309811).
+  GitHub file limits and are archived separately; available with the archived record (redacted for review).
 - The misslog self-test cost grows linearly with history (generation, not gradients); a deployment
   would subsample it — untested here.
 
-MIT license (see LICENSE).
+MIT license (see LICENSE). Anonymized for review.
