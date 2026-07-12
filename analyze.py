@@ -48,3 +48,15 @@ if __name__ == "__main__":
                 print(f"    s{d['seed']}: final={sum(t[-1]['post_hits'])} | core+day GSM8K {o.get('gsm8k_core_day')} "
                       f"NLL {o.get('ppl_core_day')} | core GSM8K {o.get('gsm8k_core')} NLL {o.get('ppl_core')} "
                       f"| base NLL {d['firewall'].get('ppl_base')}")
+
+    print("=== substrate transfer: SmolLM2-1.7B-Instruct, D6 (144 facts) ===")
+    for night in ["full", "misslog", "markov", "hybrid", "recite"]:
+        fs = sorted(glob.glob(os.path.join(R, f"loop_{night}_MSmolLM217BInst_D6_f24_s*.json")))
+        if not fs:
+            continue
+        fins, recogs, fws = [], [], set()
+        for f in fs:
+            d = json.load(open(f)); t = [e for e in d["trajectory"] if "post_hits" in e]
+            fins.append(sum(t[-1]["post_hits"])); recogs.append(t[-1].get("n_recognized"))
+            fw = d.get("firewall", {}); fws.add((fw.get("gsm8k_base"), fw.get("gsm8k_off")))
+        print(f"  {night:8s} final={fins}/144 mean={sum(fins)/len(fins):6.1f} recog={recogs} fw={sorted(fws)}")
