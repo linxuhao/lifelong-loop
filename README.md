@@ -72,7 +72,7 @@ python loop.py --night misslog --days 6 --oncap 10 --save-core --seed 1234  # + 
 
 ### Result JSON schema
 
-Filenames: `loop_{night}[_oncap][_M{model}]_D{days}_f{fpd}_s{seed}.json`. Fields:
+Filenames: `loop_{night}[_M{model}][_oncap]_D{days}_f{fpd}_s{seed}.json`. Fields:
 
 - top level: hyperparameters, `firewall` (`{gsm8k_base, gsm8k_off}`, plus `ppl_base` when `--oncap`);
 - `trajectory`: one entry per night. Full-probe nights have `post_hits` (per-fact 0/1 core-only
