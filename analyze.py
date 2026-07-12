@@ -8,7 +8,8 @@ import glob, json, os
 R = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
 
 def runs(night, D, oncap=False):
-    fs = sorted(glob.glob(os.path.join(R, f"loop_{night}_D{D}_f24_s*.json")))
+    pat = f"loop_{night}_oncap_D{D}_f24_s*.json" if oncap else f"loop_{night}_D{D}_f24_s*.json"
+    fs = sorted(glob.glob(os.path.join(R, pat)))
     fs = [f for f in fs if ("oncap" in f) == oncap]
     return [json.load(open(f)) for f in fs]
 
