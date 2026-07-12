@@ -114,7 +114,12 @@ parameters at rest are now numerous --- adaptive agents with sleep phases
 \citep{letThemSleep2026}, sleep-consolidated memory \citep{scm2026}, and test-time memorization
 lines \citep{behrouz2024titans}. These works build and assert; we instrument and measure a running
 loop per fact, per night, per age --- and several of their implicit assumptions (that self-distillation
-suffices; that serving with all adapters mounted is free) fail measurably here.
+suffices; that serving with all adapters mounted is free) fail measurably here. Test-time weight adaptation is also reaching world models: AdaJEPA
+\citep{wang2026adajepa} updates a latent world model inside the model-predictive-control loop, one
+error-driven gradient step per replan --- adaptation for \emph{immediate control}, where the
+environment re-supplies ground-truth transitions at every step. Our setting is the complement:
+adaptation for \emph{retention}, where nothing re-supplies a fact unless it was logged --- one
+reason the log is load-bearing here and no analogous dependency arises there.
 \textbf{Complementary learning systems.} The day/core split follows CLS \citep{mcclelland1995}:
 a fast, disposable store and a slow, protected one, with consolidation between. Our results give the
 computational version two sharp caveats: consolidation must be driven by ground truth (not replayed
@@ -368,17 +373,20 @@ Review}, 102(3).
 \bibitem[Robins(1995)]{robins1995} Robins, A. Catastrophic forgetting, rehearsal and pseudorehearsal.
 \emph{Connection Science}, 7(2).
 
+\bibitem[Wang et al.(2026)]{wang2026adajepa} Wang, Y., Bounou, O., LeCun, Y., \& Ren, M. AdaJEPA:
+An adaptive latent world model. arXiv:2606.32026.
+
 \bibitem[Schaul et al.(2015)]{schaul2015} Schaul, T., Quan, J., Antonoglou, I., \& Silver, D.
 Prioritized experience replay. \emph{ICLR} 2016.
 
 \bibitem[Shumailov et al.(2024)]{shumailov2024} Shumailov, I., et al. AI models collapse when
 trained on recursively generated data. \emph{Nature}, 631.
 
-\bibitem[Sleep-cycle agents(2026)]{letThemSleep2026} Let them sleep: Adaptive LLM agents via a sleep
-cycle. 2026.
+\bibitem[Lee et al.(2026)]{letThemSleep2026} Lee, S., McLeish, S., Goldstein, T., \& Fanti, G.
+Do language models need sleep? Offline recurrence for improved online inference. arXiv:2605.26099.
 
-\bibitem[Sleep-consolidated memory(2026)]{scm2026} SCM: Sleep-consolidated memory for continual LLM
-agents. arXiv:2604.20943.
+\bibitem[Shinde(2026)]{scm2026} Shinde, S.~S. SCM: Sleep-consolidated memory with algorithmic
+forgetting for large language models. arXiv:2604.20943.
 
 \end{thebibliography}
 
